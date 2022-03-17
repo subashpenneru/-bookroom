@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <title>Calendar</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.10.2/main.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.10.2/main.js"></script>
+    <link rel="stylesheet" href="../public/css/forms.css" />
+  </head>
+
+  <a href="index.html">
+    <h1 id="calhead">Meeting Room Booking</h1>
+  </a>
+
+  <body>
+    <div id="calendar"></div>
+    <script>
+      let cEvents = JSON.parse(localStorage.getItem("bookingsList"));
+      let calendarParams = [];
+
+      for (let i = 0; i < cEvents.length; i++) {
+        let params = {
+          title: cEvents[i].loginName,
+          start: cEvents[i].startDate + "T" + cEvents[i].startTime,
+          end: cEvents[i].endDate + "T" + cEvents[i].endTime,
+          resourceId:
+            cEvents[i].loginRoom === "Cave"
+              ? (cEvents[i].resourceId = "a")
+              : cEvents[i].loginRoom === "G-Mansion"
+              ? (cEvents[i].resourceId = "c")
+              : cEvents[i].loginRoom === "D-Tower"
+              ? (cEvents[i].resourceId = "b")
+              : [],
+        };
+
+        calendarParams.push(params);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          timeZone: "UTC",
+          initialView: "resourceTimeGridFourDay",
+          headerToolbar: {
+            left: "prev,next",
+            center: "title",
+            right: "resourceTimeGridDay,resourceTimeGridFourDay",
+          },
+          views: {
+            resourceTimeGridFourDay: {
+              type: "resourceTimeGrid",
+              duration: { days: 3 },
+              buttonText: "3 days",
+            },
+          },
+          resources: [
+            { id: "a", title: "Cave" },
+            { id: "b", title: "D-Tower" },
+            { id: "c", title: "G-Mansion" },
+          ],
+
+          events: function (info, successCallback, failureCallback) {
+            let eventArr = calendarParams;
+            successCallback(eventArr);
+          },
+        });
+        calendar.render();
+      });
+    </script>
+  </body>
+</html>

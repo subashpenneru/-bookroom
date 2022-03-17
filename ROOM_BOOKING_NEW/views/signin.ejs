@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Signin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/public/assets/forms.css" type="text/css" />
+  </head>
+
+  <header class="logo1">
+    <div class="logo">
+      <a href="index">
+        <p id="text">Meeting Room Booking</p>
+      </a>
+    </div>
+  </header>
+
+  <body>
+    <div class="row1">
+      <% if(success!=''){%>
+      <div class="alert alert-success"><b></b><%=success%></div>
+      <%}%>
+    </div>
+    <div id="login-form-wrap">
+      <h2>Login</h2>
+
+      <form name="myForm" id="myForm" method="post" action="signin">
+        <p>
+          <i class="bi bi-envelope"></i>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email Address"
+            autoComplete="on"
+            required
+          />
+          <i class="validation"></i>
+        </p>
+        <p>
+          <i
+            class="fa fa-eye-slash"
+            id="pass-status"
+            onClick="viewPassword()"
+            aria-hidden="true"
+          ></i>
+          <i class="bi bi-key"></i>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="password"
+            pattern="[A-Za-z0-9]{8,16}"
+            title="password must be in between 8 & 16 should contain characters and digits"
+            autoComplete="on"
+            minlength="8"
+            required
+          />
+          <i class="validation"></i>
+        </p>
+        <script>
+          const viewPassword = () => {
+            let passwordInput = document.getElementById("password");
+            let passStatus = document.getElementById("pass-status");
+            if (passwordInput.type == "password") {
+              passwordInput.type = "text";
+              passStatus.className = "fa fa-eye";
+            } else {
+              passwordInput.type = "password";
+              passStatus.className = "fa fa-eye-slash";
+            }
+          };
+        </script>
+        <p>
+          <input type="submit" id="signin" value="Submit" />
+        </p>
+      </form>
+      <div id="create-account-wrap">
+        <p id="loginPage">
+          <b>Forgot Password?</b>
+          <a id="clickHere" href="forgotPassword">Click here to reset</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

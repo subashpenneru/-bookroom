@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Signup</title>
+    <!-- <script src="../js/signup.js"></script>
+    <script src="../js/common.js"></script> -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      type="text/css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/public/assets/forms.css" type="text/css" />
+  </head>
+
+  <header class="logo1">
+    <div class="logo">
+      <a href="index">
+        <p id="text">Meeting Room Booking</p>
+      </a>
+    </div>
+  </header>
+
+  <body>
+    <div class="row">
+      <% if(success!=''){%>
+      <div class="alert alert-success"><b></b><%=success%></div>
+      <%}%>
+    </div>
+    <div id="login-form-wrap">
+      <h2>Register</h2>
+      <form name="myForm" id="myForm" action="/signup" method="post">
+        <p>
+          <i class="bi bi-person"></i>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            pattern="^[a-zA-Z][A-Za-z\s]*$"
+            title="Names should start with characters only"
+            placeholder="Username"
+            required
+          /><i class="validation"></i>
+        </p>
+        <p>
+          <i class="bi bi-envelope"></i>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email Address"
+            required
+          /><i class="validation"></i>
+        </p>
+        <p>
+          <span
+            class="fa fa-eye-slash"
+            id="pass-status"
+            onClick="viewPassword()"
+            aria-hidden="true"
+          ></span>
+          <i class="bi bi-key"></i>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="password"
+            pattern="[A-Za-z0-9]{8,16}"
+            title="password must be in between 8 & 16 should contain characters and digits"
+            required
+          />
+          <i class="validation"></i>
+        </p>
+        <script>
+          const viewPassword = () => {
+            let passwordInput = document.getElementById("password");
+            let passStatus = document.getElementById("pass-status");
+            if (passwordInput.type == "password") {
+              passwordInput.type = "text";
+              passStatus.className = "fa fa-eye";
+            } else {
+              passwordInput.type = "password";
+              passStatus.className = "fa fa-eye-slash";
+            }
+          };
+        </script>
+        <p>
+          <i class="bi bi-telephone"></i>
+          <input
+            type="text"
+            id="phone"
+            pattern="[1-9]{1}[0-9]{9}"
+            name="phone"
+            title="Phone Number should contain 10 digits"
+            placeholder="phone"
+            required
+          /><i class="validation"></i>
+        </p>
+        <p>
+          <input type="submit" id="signup" value="Submit" />
+        </p>
+      </form>
+      <div id="create-account-wrap">
+        <p id="loginPage">
+          Login? <a id="clickHere" href="signin">Click Here</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

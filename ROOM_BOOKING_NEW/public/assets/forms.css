@@ -1,0 +1,631 @@
+/* body {
+  background-color: grey;
+  font-size: 1.6rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: #2b3e51;
+  background: transparent;
+  
+}
+
+h2 {
+  font-weight: 300;
+  text-align: center;
+}
+
+p {
+  position: relative;
+}
+
+.logo a {
+  text-decoration: none;
+  font-family: poppins;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-left: 50px;
+  color: black;
+  float: left;
+  padding-top: 10px;
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+  color: #fff;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  
+}
+
+#clickHere {
+  color: #1a1a19;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+#clickHere:hover {
+  color: #92928b;
+}
+
+a:focus,
+a:hover,
+a:link:focus,
+a:link:hover,
+a:visited:focus,
+a:visited:hover,
+a:active:focus,
+a:active:hover {
+  color: #fff;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+#clickHere {
+  color: #1a1a19;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+#clickHere:hover {
+  color: #92928b;
+}
+
+#text:hover {
+  color: #92928b;
+}
+#login-form-wrap {
+  width: 28%;
+  margin: 100px auto;
+  text-align: center;
+  padding: 20px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
+}
+
+#login-form {
+  padding: 0 60px;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  outline: none;
+  height: 60px;
+  line-height: 60px;
+}
+
+input[type="email"] {
+  width: 100%;
+  padding: 0 0 0px;
+  padding-left: 40px;
+  margin: 0;
+  color: #8a8b8e;
+  border: 1px solid #c2c0ca;
+  font-style: normal;
+  font-size: 16px;
+  display: inline-block;
+}
+
+input[type="text"],
+input[type="checkbox"],
+input[type="password"],
+input[type="number"],
+input[type="startdate"],
+input[type="enddate"],
+input[type="starttime"],
+input[type="endtime"] {
+  padding-left: 40px;
+  color: #8a8b8e;
+  border: 1px solid #c2c0ca;
+  font-style: normal;
+  font-size: 16px;
+  display: inline-block;
+}
+
+input[type="text"]:focus:invalid,
+input[type="password"]:focus:invalid,
+input[type="email"]:focus:invalid,
+input[type="number"]:focus:invalid,
+input[type="startdate"]:focus:invalid,
+input[type="enddate"]:focus:invalid,
+input[type="startime"]:focus:invalid,
+input[type="endtime"]:focus:invalid {
+  color: #cc1e2b;
+  border-color: #cc1e2b;
+}
+
+input[type="text"]:valid ~ .validation,
+input[type="password"]:valid ~ .validation,
+input[type="email"]:valid ~ .validation,
+input[type="number"]:valid ~ .validation,
+input[type="startdate"]:valid ~ .validation,
+input[type="enddate"]:valid ~ .validation,
+input[type="starttime"]:valid ~ .validation,
+input[type="endtime"]:valid ~ .validation {
+  top: 30px;
+  left: 14px;
+  width: 20px;
+  height: 3px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.validation {
+  display: none;
+  position: absolute;
+  height: 60px;
+  width: 30px;
+  right: 15px;
+  top: 0px;
+}
+
+#signup,
+#signin,
+#booking {
+  width: 60%;
+  border: none;
+  display: block;
+  background: linear-gradient(#2e2d32);
+  color: rgb(68, 66, 66);
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 40px;
+  font-size: 18px;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.logo li {
+  display: block;
+  padding-top: 10px;
+  float: right;
+  margin-right: 80px;
+}
+
+#signup:hover,
+#signin:hover,
+#booking:hover {
+  background-color: rgb(214, 190, 209);
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+#create-account-wrap {
+  background-color: white;
+  color: #8a8b8e;
+  font-size: 14px;
+  width: 100%;
+  height: 50px;
+  border-radius: 0 0 4px 4px;
+}
+
+.bi {
+  display: block;
+  position: absolute;
+  padding-top: 15px;
+  padding-left: 10px;
+  margin-right: 10px;
+  color: black;
+}
+
+.fa {
+  display: inline-block;
+  position: absolute;
+  left: 350px;
+  padding-top: 20px;
+  color: black;
+  font-size: 20px;
+}
+
+.fc-toolbar-title {
+  padding-top: 400px;
+}
+
+h2 {
+  color: black;
+  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.bi-eye-slash {
+  padding-left: 230px;
+  padding-top: 15px;
+  cursor: pointer;
+  float: inline-end;
+}
+
+::placeholder {
+  padding-left: 2px;
+}
+
+.previous {
+  margin-top: 30px;
+  font-size: 15px;
+}
+
+#loginPage {
+  font-size: 12px;
+  margin-top: 0px;
+  padding-left: 10px;
+  padding-top: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+#msg {
+  font-size: 20px;
+  color: #f068ac;
+  font-weight: bold;
+  padding-top: 20px;
+  visibility: hidden;
+  text-align: center;
+}
+
+#text {
+  display: inline-block;
+  font-size: 27px;
+  padding-right: 720px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 22px;
+  line-height: 22px;
+  font-weight: 500;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+#text3 {
+  font-size: 40px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-bottom: 30px;
+}
+
+.logo1 {
+
+  background-color: #2a2d34;
+  box-shadow: 0 1px 6px 0 rgb(0 0 0 / 15%);
+  height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+a {
+  text-decoration: none;
+}
+
+#calhead {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 6px 6px 0 rgba(19, 18, 18, 0.15);
+  padding-top: 60px;
+  padding-bottom: 50px;
+  padding-left: 100px;
+  font-size: 50px;
+  width: auto;
+  z-index: 1;
+} */
+body {
+  background-color: grey;
+  font-size: 1.6rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: #2b3e51;
+  background: transparent;
+}
+
+h2 {
+  font-weight: 300;
+  text-align: center;
+}
+
+p {
+  position: relative;
+}
+
+.logo a {
+  text-decoration: none;
+  font-family: poppins;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-left: 50px;
+  color: black;
+  float: left;
+  padding-top: 10px;
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+  color: #2b3e51;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  font-weight: bold;
+}
+
+a:focus,
+a:hover,
+a:link:focus,
+a:link:hover,
+a:visited:focus,
+a:visited:hover,
+a:active:focus,
+a:active:hover {
+  color: rgb(243, 164, 226);
+}
+
+#login-form-wrap {
+  width: 28%;
+  margin: 30px auto;
+  text-align: center;
+  padding: 20px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
+}
+
+#login-form-wrap1 {
+  width: 28%;
+  margin: 100px auto;
+  text-align: center;
+  padding: 20px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
+}
+
+.row {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.row1 {
+  margin-top: 100px;
+  text-align: center;
+}
+
+#login-form {
+  padding: 0 60px;
+}
+
+input {
+  /* display: block; */
+  box-sizing: border-box;
+  width: 100%;
+  outline: none;
+  height: 60px;
+  line-height: 60px;
+}
+
+input[type="email"] {
+  width: 100%;
+  padding: 0 0 0px;
+  padding-left: 40px;
+  margin: 0;
+  color: #8a8b8e;
+  border: 1px solid #c2c0ca;
+  font-style: normal;
+  font-size: 16px;
+  display: inline-block;
+}
+
+input[type="text"],
+input[type="checkbox"],
+input[type="password"],
+input[type="number"],
+input[type="startdate"],
+input[type="enddate"],
+input[type="starttime"],
+input[type="endtime"] {
+  padding-left: 40px;
+  color: #8a8b8e;
+  border: 1px solid #c2c0ca;
+  font-style: normal;
+  font-size: 16px;
+  display: inline-block;
+}
+
+input[type="text"]:focus:invalid,
+input[type="password"]:focus:invalid,
+input[type="email"]:focus:invalid,
+input[type="number"]:focus:invalid,
+input[type="startdate"]:focus:invalid,
+input[type="enddate"]:focus:invalid,
+input[type="startime"]:focus:invalid,
+input[type="endtime"]:focus:invalid {
+  color: #cc1e2b;
+  border-color: #cc1e2b;
+}
+
+input[type="text"]:valid ~ .validation,
+input[type="password"]:valid ~ .validation,
+input[type="email"]:valid ~ .validation,
+input[type="number"]:valid ~ .validation,
+input[type="startdate"]:valid ~ .validation,
+input[type="enddate"]:valid ~ .validation,
+input[type="starttime"]:valid ~ .validation,
+input[type="endtime"]:valid ~ .validation {
+  top: 30px;
+  left: 14px;
+  width: 20px;
+  height: 3px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.validation {
+  display: none;
+  position: absolute;
+  height: 60px;
+  width: 30px;
+  right: 15px;
+  top: 0px;
+}
+
+#signup,
+#signin,
+#booking {
+  width: 60%;
+  border: none;
+  display: block;
+  background: linear-gradient(#2e2d32);
+  color: rgb(68, 66, 66);
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 40px;
+  font-size: 18px;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.logo li {
+  display: block;
+  padding-top: 10px;
+  float: right;
+  margin-right: 80px;
+}
+
+#signup:hover,
+#signin:hover,
+#booking:hover {
+  background-color: rgb(214, 190, 209);
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+#create-account-wrap {
+  background-color: white;
+  color: #8a8b8e;
+  font-size: 14px;
+  width: 100%;
+  height: 50px;
+  border-radius: 0 0 4px 4px;
+}
+
+.bi {
+  display: block;
+  position: absolute;
+  padding-top: 15px;
+  padding-left: 10px;
+  margin-right: 10px;
+  color: black;
+}
+
+.fa {
+  display: inline-block;
+  position: absolute;
+  left: 350px;
+  padding-top: 20px;
+  color: black;
+  font-size: 20px;
+}
+
+.fc-toolbar-title {
+  padding-top: 400px;
+}
+
+h2 {
+  color: black;
+  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.bi-eye-slash {
+  padding-left: 230px;
+  padding-top: 15px;
+  cursor: pointer;
+  float: inline-end;
+}
+
+::placeholder {
+  padding-left: 2px;
+}
+
+.previous {
+  margin-top: 30px;
+  font-size: 15px;
+}
+
+#loginPage {
+  font-size: 12px;
+  margin-top: 0px;
+  padding-left: 10px;
+  padding-top: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+#msg {
+  font-size: 20px;
+  color: #f068ac;
+  font-weight: bold;
+  padding-top: 20px;
+  visibility: hidden;
+  text-align: center;
+}
+
+#text {
+  margin-top: 0px;
+  padding-top: 8px;
+  padding-left: 10px;
+  font-size: 25px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: white;
+}
+
+#text:hover {
+  color: rgb(185, 180, 180);
+}
+
+#text3 {
+  font-size: 40px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-bottom: 30px;
+}
+
+.logo1 {
+  background-color: #2a2d34;
+  box-shadow: 0 1px 6px 0 rgb(0 0 0 / 15%);
+  height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+a {
+  text-decoration: none;
+}
+
+#calhead {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 6px 6px 0 rgba(19, 18, 18, 0.15);
+  padding-top: 60px;
+  padding-bottom: 50px;
+  padding-left: 100px;
+  font-size: 50px;
+  width: auto;
+  z-index: 1;
+}

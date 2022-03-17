@@ -1,0 +1,428 @@
+//     if (loginEmail === loginDeets.includes(userEmail) && loginPassword === loginDeets.includes(password)) {
+    //         console.log('Login successful')
+    //     } else {
+    //         console.log('Wrong credentials')
+    //     }
+    // } else {
+    //     console.log('Not a registered user')
+    // }
+
+   
+
+    // users.forEach(user => {
+    //     for (let key in user) {
+    //         console.log(`${key}: ${user[key]}`);
+    //     }
+    // });
+
+    // for (const [key, value] of Object.entries(localStorage)) {
+    //     console.log(key, value);
+    //     if(loginEmail.includes[key,value]){
+    //         console.log("includes");
+    //     }
+    //  }
+
+}
+
+// function loginUser() {
+//     const loginEmail = document.getElementById('login-email').value
+//     const loginPass = document.getElementById('login-pass').value
+//     if (localStorage.getItem('MyMovieList')) {
+//         const loginDeets = JSON.parse(localStorage.getItem('MyMovieList'))
+//         if (loginEmail === loginDeets.userEmail && loginPassword === loginDeets.password) {
+//             console.log('Login successful')
+//         } else {
+//             console.log('Wrong credentials')
+//         }
+//     } else {
+//         console.log('Not a registered user')
+//     }
+
+
+function saveData() {
+    var emailArr = {};
+    // var passwordArr = [];
+ 
+    let username=document.getElementById("username").value;
+    var email = document.getElementById("email").value;
+    console.log(email);
+    var password = document.getElementById("password").value;
+    console.log(password);
+    var phone = document.getElementById("phone").value;
+
+   emailArr.email;
+    // emailArr.push(email);
+    // emailArr.push(password);
+    console.log(emailArr);
+    // console.log(emailArr[1], passwordArr[1]);
+    var send = document.getElementById("done");
+    if (send) {
+        alert("Thanks for registering...");
+
+    }
+
+}
+
+// function logins() {
+//     // event.preventDefault();
+
+//     var email = document.getElementById("email").value;
+//     var password = document.getElementById("password").value;
+
+//     var i = emailArray.indexOf(email);
+//     console.log(i, "emailindex");
+//     console.log(emailArray.indexOf(email));
+//     if (emailArray.indexOf(email)==-1) {
+
+//         if (passwordArray[i] != password) {
+
+//             alert("Password does not match.");
+//             return;
+//         }
+//         else {
+//             alert(email + " yor are login Now \n welcome to our website.");
+
+//             document.getElementById("username").value = "";
+//             document.getElementById("password").value = "";
+//             return;
+//         }
+//     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// var emailArray = [];
+// var passwordArray = [];
+
+// console.log(emailArray, "emailfirst");
+// console.log(passwordArray, "passfirst");
+
+// var loginBox = document.getElementById("login");
+// var regBox = document.getElementById("signup");
+
+// regBox.addEventListener("click", function(event){
+//     event.preventDefault()
+//   });
+//     var username = document.getElementById("username").value;
+//     var email = document.getElementById("email").value;
+//     console.log(email);
+//     var password = document.getElementById("password").value;
+//     console.log(password);
+//     var phone = document.getElementById("phone").value;
+
+//     if (emailArray.indexOf(email) == -1) {
+//         emailArray.push(email);
+//         passwordArray.push(password);
+
+//         alert(email + "  Thanks for registration. \nTry to login Now");
+
+//         document.getElementById("username").value = "";
+//         document.getElementById("email").value = "";
+//         document.getElementById("password").value = "";
+//         document.getElementById("phone").value = "";
+
+
+//     }
+//     else {
+//         alert(email + " is already register.");
+//         return;
+//     }
+// });
+
+/*regBox.addEventListener('submit', function (e) {
+    e.preventDefault();
+ 
+    var email = document.getElementById("email").value;
+    console.log(email);
+    var password = document.getElementById("password").value;
+    console.log(password);
+   
+    console.log(emailArray.indexOf(email));
+    if (emailArray.indexOf(email) == -1) {
+        emailArray.push(email);
+        passwordArray.push(password);
+
+        alert(email + "  Thanks for registration. \nTry to login Now");
+
+        document.getElementById("username").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("phone").value = "";
+
+
+    }
+    else {
+        alert(email + " is already register.");
+        return;
+    }
+});*/
+// function registers() {
+//     var username = document.reg_form.username;
+//     var email = document.reg_form.email;
+//     console.log(email);
+//     var password = document.reg_form.password;
+//     console.log(password);
+//     var phone = document.reg_form.phone;
+
+//     if (emailArray.indexOf(email) == -1) {
+//         emailArray.push(email);
+//         passwordArray.push(password);
+
+//         alert(email + "  Thanks for registration. \nTry to login Now");
+
+//         document.getElementById("username").value = "";
+//         document.getElementById("email").value = "";
+//         document.getElementById("password").value = "";
+//         document.getElementById("phone").value = "";
+
+
+//     }
+//     else {
+//         alert(email + " is already register.");
+//         return;
+//     }
+// }
+
+
+
+
+
+
+// }
+// function forgot() {
+//     event.preventDefault();
+
+//     var email = document.getElementById("fe").value;
+
+//     if (emailArray.indexOf(email) == -1) {
+//         if (email == "") {
+//             alert("Email required.");
+//             return;
+//         }
+//         alert("Email does not exist.");
+//         return;
+//     }
+
+//     alert("email is send to your email check it in 24hr. \n Thanks");
+//     document.getElementById("fe").value = "";
+// }
+// console.log(emailArray, "emaillast");
+// console.log(passwordArray, "passlast");
+
+
+
+
+let data = [];
+
+const registerData = () => {
+
+    let userData = {
+        userEmail: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+    };
+
+    data.push(userData);
+
+    console.log(userData, "userData");
+    console.log(data, "data");
+    console.log(data[0], "0data");
+    console.log(data[1], "0data");
+
+    var send = document.getElementById("signup");
+    if (send) {
+        let alertMsg = document.getElementById("msg");
+        // alertMsg.innerHTML = "Thanks for Registering!";
+        alertMsg.style.visibility = "visible";
+    }
+
+    document.forms[0].reset(); // to clear the form for the next entries
+    //saving to localStorage  
+
+    // const matchedUser = data.filter(user => user.userEmail === loginEmail);
+    // console.log(matchedUser);
+    // if (matchedUser) {
+    //     data.pop(matchedUser);
+    localStorage.setItem('usersList', JSON.stringify(data));
+}
+
+<!-- <script>
+
+                    var text = document.querySelector("#persons");
+                    var output = document.querySelector("#room");
+                    text.addEventListener("input", function () {
+                        if (text.value == 2 || text.value <= 3) {
+                            output.value = "cave";
+                            output.style.display = "block";
+                        }
+                        else if ((text.value > 3 && text.value < 7) || text.value == 7) {
+                            output.value = "D-Tower";
+                            output.style.display = "block";
+                        }
+                    });
+
+                </script> -->
+
+
+
+
+
+                  // document.addEventListener('DOMContentLoaded', function () {
+        //     var calendarEl = document.getElementById('calendar');
+        //     var calendar = new FullCalendar.Calendar(calendarEl, {
+        //         initialView: 'dayGridMonth',
+        //         headerToolbar: {
+        //             left: 'prev,next today',
+        //             center: 'title',
+        //             right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        //         },
+        //         events: function (info, successCallback, failureCallback) {
+        //             let eventArr = bigCities1
+        //             successCallback(eventArr);
+        //         },
+
+        //     })
+        //     calendar.render();
+        // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        const bookingRoomData = () => {
+
+    let roomBookingData = [];
+    let alertMsg = document.getElementById("msg3");
+    let roomsData = {
+        loginName: document.getElementById("username").value,
+        startDate: document.getElementById("startdate").value,
+        endDate: document.getElementById("enddate").value,
+        startTime: document.getElementById("starttime").value,
+        endTime: document.getElementById("endtime").value,
+        loginPerson: document.getElementById("persons").value,
+        loginRoom: document.getElementById("room").value,
+        loginPhone: document.getElementById("phone").value,
+    };
+
+
+    roomBookingData = JSON.parse(localStorage.getItem("bookingsList")) ? JSON.parse(localStorage.getItem("bookingsList")) : []
+    if (roomBookingData.some((v) => { return v.loginName == roomsData.loginName })) {
+
+        alertMsg.style.color = 'red';
+        alertMsg.innerHTML = `Account already exists with the mail !`;
+        alertMsg.style.marginTop = "100px";
+        alertMsg.style.visibility = "visible";
+
+        alertMsg.scrollIntoView({ block: 'center' });
+
+        setTimeout(function () {
+            alertMsg.style.visibility = 'hidden';
+            alertMsg.style.marginTop = "20px";
+        }, 1000);
+    }
+    else {
+        roomBookingData.push(roomsData);
+        localStorage.setItem("bookingsList", JSON.stringify(roomBookingData));
+        alertMsg.innerHTML = `Meeting room is booked for : ${roomsData.loginName}, Start date:   ${roomsData.startDate},
+         End date:  ${roomsData.endDate},  Start Time:  ${roomsData.startTime}, Start Time:  ${roomsData.endTime}, Allocated Room:  ${roomsData.loginRoom}!`;
+        alertMsg.style.color = 'baby pink';
+        alertMsg.style.marginTop = "100px";
+        alertMsg.style.visibility = "visible";
+
+        alertMsg.scrollIntoView({ block: 'center' });
+        document.forms[0].reset();
+    }
+}
+
+
+
+let userData = [
+    {
+        roomName: "cave",
+        availability: "yes",
+        persons: "2",
+        startDate: "2022-03-01",
+        endDate: "2022-03-02",
+        startTime: "10:00",
+        endTime: "11:00"
+    },
+
+    {
+        roomName: "D-Tower",
+        availability: "yes",
+        persons: "5",
+        startDate: "2022-03-04",
+        endDate: "2022-03-07",
+        startTime: "12:00",
+        endTime: "13:00"
+    }
+];
+
+
+
+//3. check if user already exists and return an error else register the user
+
+//     con.connect((err) => {
+//         var sql = "Insert into register(username,email,password,phone) values('" + username + "','" + email + "','" + password + "','" + phone + "')";
+
+//         con.query(sql, user, function (error, result) {
+//             // if (err)
+//             //     throw err;
+//             if (user.length != 0) {
+//                 res.status(409).json({
+//                     error: 'Sorry! An account with that email address already exists!'
+//                 });
+//                 return;
+//             }
+//             else {
+//                 res.redirect('http://localhost:5000/signin.html');
+//                 return;
+//             }
+//             console.log(req.body, "req body");
+//         });
+//     });
+// });
