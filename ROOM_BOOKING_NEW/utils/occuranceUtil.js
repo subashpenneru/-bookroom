@@ -5,15 +5,19 @@ const getStatus = (occurance, startDt, endDt) => {
     return;
   }
 
-  const defaultO = setOccurance(startDt, endDt, occurance).split('');
+  const { startIndex, endIndex } = getStartEndIndexes(
+    startDt,
+    endDt,
+    occurance
+  );
   const current = occurance.split('');
 
   let match = false;
-  current.forEach((ele, i) => {
-    if (ele === '1' && ele === defaultO[i]) {
+  for (let x = startIndex; x < endIndex; x++) {
+    if (current[x] === '1') {
       match = true;
     }
-  });
+  }
 
   return match ? 'busy' : 'available';
 };
@@ -47,8 +51,22 @@ const setOccurance = (startDt, endDt, occurance) => {
     .join('');
 };
 
+const getStartEndIndexes = (startDt, endDt, occurance) => {
+  const _start = new Date(startDt);
+  const _end = new Date(endDt);
+
+  const rangeInMin = (_end - _start) / (60 * 1000);
+  const startHour = _start.getHours();
+
+  const startIndex = (startHour - 1) * 4;
+  const endIndex = startIndex + Math.ceil(rangeInMin / 15);
+
+  return { startIndex, endIndex };
+};
+
 module.exports = {
   defaultOccurance,
   getStatus,
   setOccurance,
+  getStartEndIndexes,
 };

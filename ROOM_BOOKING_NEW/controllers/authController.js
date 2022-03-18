@@ -206,27 +206,26 @@ const postUpdatePassword = function (req, res, next) {
 };
 
 const fetchUserStatus = function (req, res, next) {
-  console.log(req.body.email);
-  let email = req.body.email;
+  const { email, startdate, starttime, enddate, endtime } = req.body;
 
   const startdateTime = moment(
-    `${req.body.startdate} ${req.body.starttime}`,
+    `${startdate} ${starttime}`,
     'YYYY-MM-DD HH:mm:ss'
   ).format();
   const enddateTime = moment(
-    `${req.body.enddate} ${req.body.endtime}`,
+    `${enddate} ${endtime}`,
     'YYYY-MM-DD HH:mm:ss'
   ).format();
-  var sql = 'SELECT * FROM rooms WHERE attendes =?';
+
+  var sql = 'SELECT * FROM register WHERE email =?';
   con.query(sql, [email], function (err, data, fields) {
     if (data.length > 0) {
-      console.log(data);
-      let result = getStatus(data[0].occupancy, startdateTime, enddateTime);
-      console.log('res', result);
-      res.send(result);
-      console.log(email, `${email}busy`);
+      const status = getStatus(data[0].occupancy, startdateTime, enddateTime);
+      res.json({ user: data[0], status });
     } else {
-      res.render('fetch', { success: 'no data' });
+      res
+        .status(404)
+        .json({ message: `User ${email} is not a registered user!` });
     }
   });
 };
