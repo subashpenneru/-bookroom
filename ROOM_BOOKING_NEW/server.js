@@ -195,16 +195,13 @@ app.post('/rooms', function (req, res) {
     'YYYY-MM-DD HH:mm:ss'
   ).format();
   // let availablityStirng = setOccurance(startdateTime, enddateTime, occurance = defaultOccurance());
-  var roomname = req.body.roomname;
-  var capacity = req.body.capacity;
-  var title = req.body.title;
   var attendes = req.body.attendes;
   var startdate = req.body.startdate;
   var enddate = req.body.enddate;
   var starttime = req.body.starttime;
   var endtime = req.body.endtime;
-  var loggedInEmail = req.body.email;
-  var roomName = req.body.roomName;
+  var loggedInEmail = req.body.email || '';
+  var roomName = req.body.roomname;
   // var occupancy = availablityStirng;
 
   // var sql =
