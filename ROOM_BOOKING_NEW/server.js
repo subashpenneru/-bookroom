@@ -194,108 +194,58 @@ app.post('/rooms', function (req, res) {
     `${req.body.enddate} ${req.body.endtime}`,
     'YYYY-MM-DD HH:mm:ss'
   ).format();
-  // let availablityStirng = setOccurance(startdateTime, enddateTime, occurance = defaultOccurance());
   var attendes = req.body.attendes;
-  var startdate = req.body.startdate;
-  var enddate = req.body.enddate;
-  var starttime = req.body.starttime;
-  var endtime = req.body.endtime;
   var loggedInEmail = req.body.email || '';
   var roomName = req.body.roomname;
-  // var occupancy = availablityStirng;
 
-  // var sql =
-  //   'SELECT * FROM rooms WHERE  roomname=?  AND starttime=? AND endtime=?';
-  // console.log(Number(capacity), 'Person Capacity');
-
-  // if (Number(capacity) >= 2 && Number(capacity) <= 20) {
-  //   console.log('**');
-  //   con.query(
-  //     sql,
-  //     [roomname, starttime, endtime],
-  //     function (err, data, fields) {
-  //       if (data.length > 0) {
-  //         // /* con.query(
-  //         //   sql,
-  //         //   ["Mansion", starttime, endtime],
-  //         //   function (err, data, fields) {
-  //         //     if (data.length > 0) {
-  //         //       temp1 = "Mansion Busy";
-  //         //       console.log(temp1, "temp1 status");
-  //         //       console.log("mansion Busy");
-  //         //       // res.render("rooms", { success: "Mansion busy" });
-  //         //     } else {
-  //         //       temp1 = "Mansion Available";
-  //         //       console.log("mansion available");
-  //         //       //res.render("rooms", { success: "Mansion booked" });
-  //         //     }
-  //         //   }
-  //         // );
-  //         // con.query(
-  //         //   sql,
-  //         //   ["Tower", starttime, endtime],
-  //         //   function (err, data, fields) {
-  //         //     if (data.length > 0) {
-  //         //       temp2 = "Tower Busy";
-  //         //       console.log("Tower Busy");
-  //         //       //res.render("rooms", { success: "Tower busy" });
-  //         //     } else {
-  //         //       temp2 = "Tower Available";
-  //         //       console.log("Tower available");
-  //         //       //res.render("rooms", { success: "Tower booked" });
-  //         //     }
-  //         //   }
-  //         // );
-
-  //         // con.query(
-  //         //   sql,
-  //         //   ["Cave", starttime, endtime],
-  //         //   function (err, data, fields) {
-  //         //     if (data.length > 0) {
-  //         //       temp3 = "Cave Busy";
-  //         //       console.log("Cave Busy");
-  //         //       //res.render("rooms", { success: "Cave Busy" });
-  //         //     } else {
-  //         //       temp3 = "Cave Available";
-  //         //       console.log("Cave available");
-  //         //       //res.render("rooms", { success: "Cave booked" });
-
-  //         //       //                 res.send("<html> <head><script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'>"
-
-  //         //       //                 + "</script></head>"
-
-  //         //       //                 + "<body><script type='text/javascript'>"
-
-  //         //       //                 +"swal('Meeting Room','No Vacancy',error')</script>"
-
-  //         //       //                +"</body></html>");
-  //         //       // }
-  //         //     }
-  //         //   }
-  //         // ); */
-  //         res.render('rooms', {
-  //           success: ` ${roomname} Busy! Try to check other rooms`,
-  //         });
-  //       }
-  // else {
-  // Room occupancy update
-  var sqlcheck = 'SELECT * FROM rooms WHERE roomName = ?';
-
+  var sqlcheck = 'SELECT * FROM meeting_info WHERE rooName = ?';
   con.query(sqlcheck, [roomName], function (err, data, fields) {
+    console.log(data);
     if (data.length > 0) {
-      const status = getStatus(data[0].occupancy, startdateTime, enddateTime);
+      const status = getStatus(
+        data[0].occupancyString,
+        startdateTime,
+        enddateTime
+      );
 
       if (status.toLowerCase() === 'available') {
-        let availablityStirng = setOccurance(
+        let availablityString = setOccurance(
           startdateTime,
           enddateTime,
-          data[0].occupancy
+          data[0].occupancyString
         );
 
-        var update = 'update rooms set occupancy = ? where roomName = ?';
-        con.query(update, [availablityStirng], function (err, data, fields) {
+        var update =
+          'update meeting_info set occupancyString = ? where rooName = ?';
+        con.query(update, [availablityString], function (err, data, fields) {
           if (data.length > 0) {
-            res.send(data);
+            // User occupancy update
+            var sqlcheck = 'SELECT * FROM register WHERE email = ?';
+            let people = attendes.split(',');
+            people = people.filter((ele) => ele !== '');
+            people.push(loggedInEmail);
+            people.forEach((p) => {
+              con.query(sqlcheck, [p], function (err, data, fields) {
+                if (data.length > 0) {
+                  let userAvailability = setOccurance(
+                    startdateTime,
+                    enddateTime,
+                    data[0].occupancy
+                  );
+                  var update =
+                    'update register set occupancy = ? where email = ?';
+                  con.query(
+                    update,
+                    [userAvailability, p],
+                    function (err, data, fields) {
+                      if (data.length > 0) {
+                        res.send(data);
+                      }
+                    }
+                  );
+                }
+              });
+            });
           }
         });
       } else {
@@ -303,68 +253,6 @@ app.post('/rooms', function (req, res) {
       }
     }
   });
-
-  // User occupancy update
-  var sqlcheck = 'SELECT * FROM register WHERE email = ?';
-  const people = attendes.split(',');
-  people.push(loggedInEmail);
-  people.forEach((p) => {
-    con.query(sqlcheck, [p], function (err, data, fields) {
-      if (data.length > 0) {
-        let availablityStirng = setOccurance(
-          startdateTime,
-          enddateTime,
-          data[0].occupancy
-        );
-        var update = 'update register set occupancy = ? where email = ?';
-        var occupancy = availablityStirng;
-        con.query(update, [occupancy, attendes], function (err, data, fields) {
-          if (data.length > 0) {
-            res.send(data);
-          }
-        });
-      }
-      // else {
-      //   let availablityStirng = setOccurance(
-      //     startdateTime,
-      //     enddateTime,
-      //     (occurance = defaultOccurance())
-      //   );
-      //   var occupancy = availablityStirng;
-      //   con.query(
-      //     "Insert into rooms(roomname,capacity,title,attendes,startdate,enddate,starttime,endtime,occupancy) values('" +
-      //       roomname +
-      //       "','" +
-      //       capacity +
-      //       "','" +
-      //       title +
-      //       "','" +
-      //       attendes +
-      //       "','" +
-      //       startdate +
-      //       "','" +
-      //       enddate +
-      //       "','" +
-      //       starttime +
-      //       "','" +
-      //       endtime +
-      //       "','" +
-      //       occupancy +
-      //       "')"
-      //   );
-      //   res.render('rooms', {
-      //     success: `Successfully booked ! ${roomname}`,
-      //   });
-      // }
-    });
-  });
-  // }
-  //     }
-  //   );
-  // } else {
-  //   console.log('Capacity in between 2 to 20');
-  //   res.render('rooms', { success: 'No Vacant Room' });
-  // }
 });
 
 //send email
