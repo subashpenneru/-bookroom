@@ -1,17 +1,17 @@
-var con = require("./connection");
-const express = require("express");
+var con = require('./connection');
+const express = require('express');
 var app = express();
 var router = express.Router();
-var expressSession = require("express-session");
-var nodemailer = require("nodemailer");
-var bcrypt = require("bcrypt");
-var randtoken = require("rand-token");
-var flash = require("express-flash");
-const bodyparser = require("body-parser");
-var swal = require("sweetalert");
-const { listenerCount } = require("./connection");
-app.use("/public", express.static("public"));
-app.set("view engine", "ejs");
+var expressSession = require('express-session');
+var nodemailer = require('nodemailer');
+var bcrypt = require('bcrypt');
+var randtoken = require('rand-token');
+var flash = require('express-flash');
+const bodyparser = require('body-parser');
+var swal = require('sweetalert');
+const { listenerCount } = require('./connection');
+app.use('/public', express.static('public'));
+app.set('view engine', 'ejs');
 var moment = require('moment');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -69,7 +69,7 @@ app.use(
   expressSession({
     resave: true,
     saveUninitialized: true,
-    secret: "star",
+    secret: 'star',
     cookie: { maxAge: 14400000 },
   })
 );
@@ -79,27 +79,27 @@ app.use(flash());
 app.use(bodyparser.urlencoded({ extended: true })); */
 
 app.listen(5000, () =>
-  console.log("Express server is running at port no : 5000")
+  console.log('Express server is running at port no : 5000')
 );
 
-app.get("/index", function (req, res, next) {
-  res.render("index", {
-    title: "Home Page",
+app.get('/index', function (req, res, next) {
+  res.render('index', {
+    title: 'Home Page',
   });
 });
 
-app.get("/signup", function (req, res, next) {
-  res.render("signup", { success: "" });
+app.get('/signup', function (req, res, next) {
+  res.render('signup', { success: '' });
 });
 
-app.post("/signup", function (req, res) {
+app.post('/signup', function (req, res) {
   var username = req.body.username;
   var email = req.body.email;
   var password = req.body.password;
   var phone = req.body.phone;
 
   con.query(
-    "SELECT COUNT(*) AS cnt FROM register WHERE email = ? ",
+    'SELECT COUNT(*) AS cnt FROM register WHERE email = ? ',
     req.body.email,
     function (err, data) {
       if (err) {
@@ -114,18 +114,20 @@ app.post("/signup", function (req, res) {
         // res.redirect(200, '/');
 
         // res.redirect('/signup')
-        res.render("signup", { success: "Mail Already Exists!Try to Login" });
+        res.render('signup', { success: 'Mail Already Exists!Try to Login' });
       } else {
         con.query(
-          "Insert into register(username,email,password,phone) values('" +
-          username +
-          "','" +
-          email +
-          "','" +
-          password +
-          "','" +
-          phone +
-          "')",
+          "Insert into register(username,email,password,phone,occupancy) values('" +
+            username +
+            "','" +
+            email +
+            "','" +
+            password +
+            "','" +
+            phone +
+            "','" +
+            defaultOccurance() +
+            "')",
           function (err, insert) {
             if (err) {
               throw err;
@@ -142,8 +144,8 @@ app.post("/signup", function (req, res) {
               // + "swal('Meeting Room','Successfully submitted','error')</script>"
 
               // + "</body></html>");
-              res.render("signup", {
-                success: "Inserted Records Successfully!",
+              res.render('signup', {
+                success: 'Inserted Records Successfully!',
               });
             }
           }
@@ -153,39 +155,45 @@ app.post("/signup", function (req, res) {
   );
 });
 
-app.get("/signin", function (req, res) {
-  res.render("signin", { success: "" });
+app.get('/signin', function (req, res) {
+  res.render('signin', { success: '' });
 });
 
-app.post("/signin", function (req, res) {
+app.post('/signin', function (req, res) {
   var email = req.body.email;
   var password = req.body.password;
-  var sql = "SELECT * FROM register WHERE email =? AND password =?";
+  var sql = 'SELECT * FROM register WHERE email =? AND password =?';
   con.query(sql, [email, password], function (err, data, fields) {
     if (data.length > 0) {
       req.email = email;
       req.password = password;
-      res.redirect("/rooms");
+      res.redirect('/rooms');
     } else {
       // res.send("Invalid username or password");
       // res.redirect('/signin');
       // console.log('Check Your Credentials');
       // req.flash('error', 'Please correct enter email and Password!')
-      res.render("signin", { success: "Check your Credentials!" });
+      res.render('signin', { success: 'Check your Credentials!' });
     }
   });
 });
 
-app.get("/rooms", function (req, res, next) {
-  res.render("rooms", {
-    title: "Rooms",
-    success: "",
+app.get('/rooms', function (req, res, next) {
+  res.render('rooms', {
+    title: 'Rooms',
+    success: '',
   });
 });
 
-app.post("/rooms", function (req, res) {
-  const startdateTime = moment(`${req.body.startdate} ${req.body.starttime}`, 'YYYY-MM-DD HH:mm:ss').format();
-  const enddateTime = moment(`${req.body.enddate} ${req.body.endtime}`, 'YYYY-MM-DD HH:mm:ss').format();
+app.post('/rooms', function (req, res) {
+  const startdateTime = moment(
+    `${req.body.startdate} ${req.body.starttime}`,
+    'YYYY-MM-DD HH:mm:ss'
+  ).format();
+  const enddateTime = moment(
+    `${req.body.enddate} ${req.body.endtime}`,
+    'YYYY-MM-DD HH:mm:ss'
+  ).format();
   // let availablityStirng = setOccurance(startdateTime, enddateTime, occurance = defaultOccurance());
   var roomname = req.body.roomname;
   var capacity = req.body.capacity;
@@ -195,19 +203,16 @@ app.post("/rooms", function (req, res) {
   var enddate = req.body.enddate;
   var starttime = req.body.starttime;
   var endtime = req.body.endtime;
+  var loggedInEmail = req.body.email;
+  var roomName = req.body.roomName;
   // var occupancy = availablityStirng;
 
-
-  var temp1;
-  var temp2;
-  var temp3;
-
   var sql =
-    "SELECT * FROM rooms WHERE  roomname=?  AND starttime=? AND endtime=?";
-  console.log(Number(capacity), "Person Capacity");
+    'SELECT * FROM rooms WHERE  roomname=?  AND starttime=? AND endtime=?';
+  console.log(Number(capacity), 'Person Capacity');
 
   if (Number(capacity) >= 2 && Number(capacity) <= 20) {
-    console.log("**");
+    console.log('**');
     con.query(
       sql,
       [roomname, starttime, endtime],
@@ -271,56 +276,110 @@ app.post("/rooms", function (req, res) {
           //     }
           //   }
           // ); */
-          res.render("rooms", {
+          res.render('rooms', {
             success: ` ${roomname} Busy! Try to check other rooms`,
           });
         } else {
-          var sqlcheck = "SELECT * FROM rooms WHERE attendes = ?";
-          con.query(sqlcheck, [attendes], function (err, data, fields) {
-            if (data.length > 0) {
-              let availablityStirng = setOccurance(startdateTime, enddateTime, data[0].occupancy);
-              var update = "update rooms set occupancy = ? where attendes = ?";
-              var occupancy = availablityStirng;
-              con.query(update, [occupancy, attendes], function (err, data, fields) {
-                if (data.length > 0) {
-                  res.send(data)
-                }
-              })
+          // Room occupancy update
+          var sqlcheck = 'SELECT * FROM rooms WHERE roomName = ?';
 
-            } else {
-              let availablityStirng = setOccurance(startdateTime, enddateTime, occurance = defaultOccurance());
-              var occupancy = availablityStirng;
-              con.query(
-                "Insert into rooms(roomname,capacity,title,attendes,startdate,enddate,starttime,endtime,occupancy) values('" +
-                roomname +
-                "','" +
-                capacity +
-                "','" +
-                title +
-                "','" +
-                attendes +
-                "','" +
-                startdate +
-                "','" +
-                enddate +
-                "','" +
-                starttime +
-                "','" +
-                endtime +
-                "','" +
-                occupancy +
-                "')"
+          con.query(sqlcheck, [roomName], function (err, data, fields) {
+            if (data.length > 0) {
+              const status = getStatus(
+                data[0].occupancy,
+                startdateTime,
+                enddateTime
               );
-              res.render("rooms", { success: `Successfully booked ! ${roomname}` });
+
+              if (status.toLowerCase() === 'available') {
+                let availablityStirng = setOccurance(
+                  startdateTime,
+                  enddateTime,
+                  data[0].occupancy
+                );
+
+                var update =
+                  'update rooms set occupancy = ? where roomName = ?';
+                con.query(
+                  update,
+                  [availablityStirng],
+                  function (err, data, fields) {
+                    if (data.length > 0) {
+                      res.send(data);
+                    }
+                  }
+                );
+              } else {
+                return res.send('Room not available');
+              }
             }
           });
 
+          // User occupancy update
+          var sqlcheck = 'SELECT * FROM register WHERE email = ?';
+          const people = attendes.split(',');
+          people.push(loggedInEmail);
+          people.forEach((p) => {
+            con.query(sqlcheck, [p], function (err, data, fields) {
+              if (data.length > 0) {
+                let availablityStirng = setOccurance(
+                  startdateTime,
+                  enddateTime,
+                  data[0].occupancy
+                );
+                var update =
+                  'update register set occupancy = ? where email = ?';
+                var occupancy = availablityStirng;
+                con.query(
+                  update,
+                  [occupancy, attendes],
+                  function (err, data, fields) {
+                    if (data.length > 0) {
+                      res.send(data);
+                    }
+                  }
+                );
+              }
+              // else {
+              //   let availablityStirng = setOccurance(
+              //     startdateTime,
+              //     enddateTime,
+              //     (occurance = defaultOccurance())
+              //   );
+              //   var occupancy = availablityStirng;
+              //   con.query(
+              //     "Insert into rooms(roomname,capacity,title,attendes,startdate,enddate,starttime,endtime,occupancy) values('" +
+              //       roomname +
+              //       "','" +
+              //       capacity +
+              //       "','" +
+              //       title +
+              //       "','" +
+              //       attendes +
+              //       "','" +
+              //       startdate +
+              //       "','" +
+              //       enddate +
+              //       "','" +
+              //       starttime +
+              //       "','" +
+              //       endtime +
+              //       "','" +
+              //       occupancy +
+              //       "')"
+              //   );
+              //   res.render('rooms', {
+              //     success: `Successfully booked ! ${roomname}`,
+              //   });
+              // }
+            });
+          });
         }
       }
     );
   } else {
-    console.log("Capacity in between 2 to 20");
-    res.render("rooms", { success: "No Vacant Room" });
+    console.log('Capacity in between 2 to 20');
+    res.render('rooms', { success: 'No Vacant Room' });
   }
 });
 
@@ -329,16 +388,16 @@ function sendEmail(email, token) {
   var email = email;
   var token = token;
   var mail = nodemailer.createTransport({
-    service: "gmail",
+    service: 'gmail',
     auth: {
-      user: "m9705453621", // Your email id
-      pass: "me&9705453621", // Your password
+      user: 'm9705453621', // Your email id
+      pass: 'me&9705453621', // Your password
     },
   });
   var mailOptions = {
-    from: "donotreply@gmail.com",
+    from: 'donotreply@gmail.com',
     to: email,
-    subject: "Reset Password Link",
+    subject: 'Reset Password Link',
     html:
       '<p>You requested for reset password, kindly use this <a href="http://localhost:5000/updatePassword?token=' +
       token +
@@ -355,29 +414,29 @@ function sendEmail(email, token) {
 }
 /* forgot password page */
 
-app.get("/forgotPassword", function (req, res, next) {
-  res.render("forgotPassword", {
-    title: "Forget Password Page",
-    success: "",
+app.get('/forgotPassword', function (req, res, next) {
+  res.render('forgotPassword', {
+    title: 'Forget Password Page',
+    success: '',
   });
 });
 
 /* send reset password link in email */
 
-app.post("/reset-password-email", function (req, res, next) {
+app.post('/reset-password-email', function (req, res, next) {
   var email = req.body.email;
-  console.log(sendEmail(email), "email");
+  console.log(sendEmail(email), 'email');
   con.query(
     'SELECT * FROM register WHERE email ="' + email + '"',
     function (err, result) {
       if (err) throw err;
-      var type = "";
-      var msg = "";
+      var type = '';
+      var msg = '';
       console.log(result[0]);
       if (result[0].email.length > 0) {
         var token = randtoken.generate(20);
         var sent = sendEmail(email, token);
-        if (sent != "0") {
+        if (sent != '0') {
           var data = {
             token: token,
           };
@@ -388,29 +447,29 @@ app.post("/reset-password-email", function (req, res, next) {
               if (err) throw err;
             }
           );
-          type = "success";
-          res.render("signin", {
+          type = 'success';
+          res.render('signin', {
             success:
-              "The reset password link has been sent to your email address",
+              'The reset password link has been sent to your email address',
           });
-          msg = "The reset password link has been sent to your email address";
-          console.log(msg, "msg");
+          msg = 'The reset password link has been sent to your email address';
+          console.log(msg, 'msg');
         } else {
-          type = "error";
-          msg = "Something goes to wrong. Please try again";
-          res.render("signin", {
-            success: "Something goes to wrong. Please try again",
+          type = 'error';
+          msg = 'Something goes to wrong. Please try again';
+          res.render('signin', {
+            success: 'Something goes to wrong. Please try again',
           });
-          console.log(msg, "msg");
+          console.log(msg, 'msg');
         }
       } else {
-        console.log("2");
-        type = "error";
-        msg = "The Email is not registered with us";
-        res.render("signin", {
-          success: "The Email is not registered with us",
+        console.log('2');
+        type = 'error';
+        msg = 'The Email is not registered with us';
+        res.render('signin', {
+          success: 'The Email is not registered with us',
         });
-        console.log(msg, "msg");
+        console.log(msg, 'msg');
       }
       // req.flash(type, msg);
       // res.redirect('/signin');
@@ -419,17 +478,17 @@ app.post("/reset-password-email", function (req, res, next) {
 });
 /* reset page */
 
-app.get("/updatePassword", function (req, res, next) {
-  res.render("updatePassword", {
-    title: "Reset Password Page",
-    success: "",
+app.get('/updatePassword', function (req, res, next) {
+  res.render('updatePassword', {
+    title: 'Reset Password Page',
+    success: '',
     token: req.query.token,
   });
 });
 
 /* update password to database */
 
-app.post("/updatePassword", function (req, res, next) {
+app.post('/updatePassword', function (req, res, next) {
   var token = req.body.token;
   var password = req.body.password;
   con.query(
@@ -454,16 +513,16 @@ app.post("/updatePassword", function (req, res, next) {
             );
           });
         });
-        type = "success";
-        msg = "Your password has been updated successfully";
-        res.render("signin", { success: "Password updated ! Now Login" });
-        console.log(msg, "msg");
+        type = 'success';
+        msg = 'Your password has been updated successfully';
+        res.render('signin', { success: 'Password updated ! Now Login' });
+        console.log(msg, 'msg');
       } else {
-        console.log("2");
-        type = "success";
-        msg = "Invalid link; please try again";
-        res.render("signin", { success: "Invalid link ! please try again" });
-        console.log(msg, "msg");
+        console.log('2');
+        type = 'success';
+        msg = 'Invalid link; please try again';
+        res.render('signin', { success: 'Invalid link ! please try again' });
+        console.log(msg, 'msg');
       }
 
       // res.redirect('/signin');
@@ -471,24 +530,28 @@ app.post("/updatePassword", function (req, res, next) {
   );
 });
 
-app.post("/fetch", function (req, res, next) {
+app.post('/fetch', function (req, res, next) {
   console.log(req.body.email);
   let email = req.body.email;
 
-
-  const startdateTime = moment(`${req.body.startdate} ${req.body.starttime}`, 'YYYY-MM-DD HH:mm:ss').format();
-  const enddateTime = moment(`${req.body.enddate} ${req.body.endtime}`, 'YYYY-MM-DD HH:mm:ss').format();
-  var sql = "SELECT * FROM rooms WHERE attendes =?";
+  const startdateTime = moment(
+    `${req.body.startdate} ${req.body.starttime}`,
+    'YYYY-MM-DD HH:mm:ss'
+  ).format();
+  const enddateTime = moment(
+    `${req.body.enddate} ${req.body.endtime}`,
+    'YYYY-MM-DD HH:mm:ss'
+  ).format();
+  var sql = 'SELECT * FROM rooms WHERE attendes =?';
   con.query(sql, [email], function (err, data, fields) {
     if (data.length > 0) {
-      console.log(data)
+      console.log(data);
       let result = getStatus(data[0].occupancy, startdateTime, enddateTime);
-      console.log("res", result)
+      console.log('res', result);
       res.send(result);
       console.log(email, `${email}busy`);
     } else {
-      res.render("fetch", { success: "no data" });
+      res.render('fetch', { success: 'no data' });
     }
   });
-
-})
+});
