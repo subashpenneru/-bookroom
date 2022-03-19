@@ -16,11 +16,11 @@ const bookRoom = function (req, res) {
     enddate,
     endtime,
     attendes,
-    organizer: email,
+    organizer,
     roomname: roomName,
   } = req.body;
 
-  const loggedInEmail = email || '';
+  const loggedInEmail = organizer || '';
   const startDt = moment(
     `${startdate} ${starttime}`,
     'YYYY-MM-DD HH:mm:ss'

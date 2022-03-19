@@ -35,8 +35,10 @@ const setOccurance = (startDt, endDt, occurance) => {
 
   const rangeInMin = (_end - _start) / (60 * 1000);
   const startHour = _start.getHours();
+  const startMinutes = _start.getMinutes();
 
-  const startIndex = (startHour - 1) * 4;
+  const startIndex =
+    startHour * 4 + (startMinutes > 0 ? Math.ceil(startMinutes / 15) : 0);
   const endIndex = startIndex + Math.ceil(rangeInMin / 15);
 
   return occurance
@@ -57,8 +59,10 @@ const getStartEndIndexes = (startDt, endDt, occurance) => {
 
   const rangeInMin = (_end - _start) / (60 * 1000);
   const startHour = _start.getHours();
+  const startMinutes = _start.getMinutes();
 
-  const startIndex = (startHour - 1) * 4;
+  const startIndex =
+    startHour * 4 + (startMinutes > 0 ? Math.ceil(startMinutes / 15) : 0);
   const endIndex = startIndex + Math.ceil(rangeInMin / 15);
 
   return { startIndex, endIndex };

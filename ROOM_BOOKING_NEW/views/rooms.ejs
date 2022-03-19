@@ -228,6 +228,13 @@
       var searchedUsers = [];
       var busyUsers = [];
 
+      $('#startdate, #enddate').on('change', function () {
+        searchedUsers = [];
+      });
+      $('#starttime, #endtime').on('blur', function () {
+        searchedUsers = [];
+      });
+
       async function getUserStatus() {
         let $this = $(this);
         let value = $this.val();
